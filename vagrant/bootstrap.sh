@@ -109,18 +109,18 @@ systemctl start php56-php-fpm
 # -------------------------------------------
 
 # Ruby
-##yum install -y ruby ruby-devel rubygems
-##gem install json_pure
+yum install -y ruby ruby-devel rubygems
+gem install json_pure
 
 # SASS
-##gem install sass:3.2.14 compass:0.12.6 compass-blueprint
+gem install sass:3.2.14 compass:0.12.6 compass-blueprint
 
 # LESS
-##yum install -y less therubyracer
-##gem install therubyracer less
+yum install -y less therubyracer
+gem install therubyracer less
 
 # NPM
-##yum install -y npm
+yum install -y npm
 
 
 # -------------------------------------------
@@ -202,7 +202,7 @@ service php56-php-fpm restart
 # MySQL Setup
 # -------------------------------------------
 mysql -e "DROP DATABASE IF EXISTS magento_starter"
-mysql -e "CREATE DATABASE IF NOT EXISTS magento_starter"
+mysql -e "CREATE DATABASE magento_starter"
 mysql -e "GRANT ALL PRIVILEGES ON magento_starter.* TO 'magento_starter'@'localhost' IDENTIFIED BY 'password'"
 mysql -e "FLUSH PRIVILEGES"
 
@@ -238,10 +238,10 @@ cd /www/magento/starter/www
 php56 -f install.php -- --license_agreement_accepted yes \
 --locale en_US --timezone "Australia/Sydney" --default_currency AUD \
 --db_host localhost --db_name magento_starter --db_user magento_starter --db_pass password \
---url "http://127.0.0.1/" --use_rewrites yes \
---use_secure no --secure_base_url "http://127.0.0.1/" --use_secure_admin no \
---skip_url_validation yes \
+--url "http://magento.dev/" --use_rewrites yes \
+--use_secure no --secure_base_url "http://magento.dev/" --use_secure_admin no \
+--skip_url_validation yes --use_rewrites yes \
 --admin_lastname Admin --admin_firstname Admin --admin_email "admin@example.com" \
---admin_username admin --admin_password password
+--admin_username admin --admin_password password1
 fi
 
