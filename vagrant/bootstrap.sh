@@ -3,6 +3,7 @@
 # -------------------------------------------
 # Yum Update
 # -------------------------------------------
+yum install -y deltarpm
 yum update -y
 
 
@@ -14,10 +15,17 @@ setenforce 0
 
 
 # -------------------------------------------
+# Disable Firewall
+# -------------------------------------------
+systemctl stop firewalld
+systemctl disable firewalld
+
+
+# -------------------------------------------
 # Basics
 # -------------------------------------------
 # Basic Tools
-yum install -y net-tools wget vim git mlocate sendmail gcc gcc-c++ deltarpm
+yum install -y net-tools wget vim git mlocate sendmail gcc gcc-c++
 
 # Vim Config
 VIM_CONFIG=$(cat <<EOF
@@ -101,18 +109,18 @@ systemctl start php56-php-fpm
 # -------------------------------------------
 
 # Ruby
-yum install -y ruby ruby-devel rubygems
-gem install json_pure
+##yum install -y ruby ruby-devel rubygems
+##gem install json_pure
 
 # SASS
-gem install sass:3.2.14 compass:0.12.6 compass-blueprint
+##gem install sass:3.2.14 compass:0.12.6 compass-blueprint
 
 # LESS
-yum install -y less therubyracer
-gem install therubyracer less
+##yum install -y less therubyracer
+##gem install therubyracer less
 
 # NPM
-yum install -y npm
+##yum install -y npm
 
 
 # -------------------------------------------
@@ -204,21 +212,24 @@ mysql -e "FLUSH PRIVILEGES"
 # -------------------------------------------
 
 # Grab files
-if [ -f "/vagrant/source/magento-1.9.0.1.tar.bz2" ]; then
-	echo "/vagrant/source/magento-1.9.0.1.tar.bz2 found. Start copy..."
-	tar -xvf /vagrant/source/magento-1.9.0.1.tar.bz2 -C /vagrant/source/magento
+if [ -f "/vagrant/src/magento-1.9.0.1.tar.bz2" ]; then
+	echo "/vagrant/src/magento-1.9.0.1.tar.bz2 found. Start copy..."
+	tar -xvf /vagrant/src/magento-1.9.0.1.tar.bz2 -C /www/magento/starter
 
-	echo "moving files to /www/magento/starter/www ..."
-	mv /vagrant/source/magento/{*,.*} /www/magento/starter/www
+	echo "Creating Webroot and Logs"
+	mv /www/magento/starter/magento /www/magento/starter/www
+	mkdir /www/magento/starter/logs
 
-	rm -rf /vagrant/source/magento
 	echo "Done"
 else
-	echo "/vagrant/source/magento-1.9.0.1.tar.bz2 not found"
+	echo "/vagrant/src/magento-1.9.0.1.tar.bz2 not found"
 fi
 
 # Ensure user ownership is correct
 chown vagrant:vagrant -R /www
+
+# Restart Apache
+service httpd restart
 
 # Install
 # Run installer
