@@ -40,4 +40,5 @@ systemctl start nfs-server
 vagrant up
 ```
 
-Once complete, you should be able to navigate to http://magento.dev/ and have an installed version of Magento there. To access admin, go to http://magento.dev/admin and log in with **admin** / **password1** .
+ * Once complete, you should be able to navigate to http://magento.dev/ and have an installed version of Magento there.
+ * To access admin, go to http://magento.dev/admin and log in with **admin** / **password1** .
