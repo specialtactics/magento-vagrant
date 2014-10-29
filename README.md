@@ -42,3 +42,4 @@ vagrant up
 
  * Once complete, you should be able to navigate to http://magento.dev/ and have an installed version of Magento there.
  * To access admin, go to http://magento.dev/admin and log in with **admin** / **password1** .
+ * The magento files inside vagrant will be linked to the magento directory within this repository, specifically **magento/www** and logs will be in **magento/logs** .
