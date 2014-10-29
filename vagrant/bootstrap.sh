@@ -40,9 +40,12 @@ echo "$VIM_CONFIG" > /home/vagrant/.vimrc
 
 # Zsh
 yum install -y zsh
-wget --no-check-certificate http://install.ohmyz.sh -O - | sh
+wget --no-check-certificate http://install.ohmyz.sh -O /tmp/install.ohmyz.sh
+/tmp/install.ohmyz.sh
+runuser -l vagrant -c 'sh /tmp/install.ohmyz.sh'
 chsh -s /bin/zsh
 chsh -s /bin/zsh vagrant
+rm -f /tmp/install.ohmyz.sh
 
 
 # -------------------------------------------
